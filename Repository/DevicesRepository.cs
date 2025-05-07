@@ -24,7 +24,7 @@ namespace Repository
            {
                Value = x.Id.ToString(),
                Text = x.Name
-           }).OrderBy(d => d.Text).ToList().ToList();
+           }).OrderBy(d => d.Text).AsNoTracking().ToList();
         }
     }
 }

@@ -14,6 +14,6 @@ namespace GameStore
 
         public Category Category { get; set;}
 
-        public ICollection<GameDevice> GameDevices  { get; set;}=new List<GameDevice>();
+        public ICollection<GameDevice> Devices  { get; set;}=new List<GameDevice>();
     }
 }

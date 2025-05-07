@@ -1,5 +1,6 @@
 
 
+using Microsoft.Extensions.DependencyInjection;
 using ServicesContract;
 
 namespace GameStore
@@ -23,10 +24,14 @@ namespace GameStore
 
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();
             builder.Services.AddScoped<IDevicesService, DevicesService>();
+            builder.Services.AddScoped<IGameService, GameServices>();
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IDevicesRepository, DevicesRepository>();
+            builder.Services.AddScoped<IGameRepository, GameRepository>();
 
+
+          
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())

@@ -9,7 +9,7 @@ namespace GameStore
             builder.HasKey(x => new { x.DeviceId, x.GameId });
 
             builder.HasOne(x => x.Game)
-                 .WithMany(g => g.GameDevices)
+                 .WithMany(g => g.Devices)
                  .HasForeignKey(gd => gd.GameId);
 
 

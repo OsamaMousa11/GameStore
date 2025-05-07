@@ -24,7 +24,7 @@ namespace GameStore
                  .WithMany(c => c.Games)
                  .HasForeignKey(g => g.CategoryId);
 
-            builder.HasMany(g => g.GameDevices)
+            builder.HasMany(g => g.Devices)
                  .WithOne(gd => gd.Game)
                  .HasForeignKey(gd => gd.GameId);
 

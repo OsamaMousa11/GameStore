@@ -1,5 +1,10 @@
 ﻿
 
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+
+
 namespace GameStore.ViewModels
 {
     public class CreateGameFormViewModel
@@ -20,6 +25,7 @@ namespace GameStore.ViewModels
 
         [MaxLength(2500)]
         public string Description { get; set; } = string.Empty;
+        
         public IFormFile Cover { get; set; } = default;
     }
     

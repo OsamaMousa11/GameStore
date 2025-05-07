@@ -6,18 +6,20 @@ namespace GameStore.Controllers
         
         private readonly ICategoriesService _categoriesService;
         private readonly IDevicesService _devicesService;
+        private readonly IGameService _gameServices;
 
-        public GamesController(ICategoriesService categoriesService,IDevicesService devicesService)
+        public GamesController(ICategoriesService categoriesService,IDevicesService devicesService, IGameService gameServices)
         {
             _categoriesService = categoriesService;
             _devicesService = devicesService;
+            _gameServices = gameServices;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        [HttpGet]
+        
         public IActionResult Create()
         {
             
@@ -30,15 +32,16 @@ namespace GameStore.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateGameFormViewModel model)
+        public async Task <IActionResult> Create(CreateGameFormViewModel model)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 model.Categories = _categoriesService.GetListCategories();
                 model.Devices = _devicesService.GetListDevices();
                 return View(model);
             }
+            await _gameServices.Create(model);
             return RedirectToAction(nameof(Index));
             
         }
