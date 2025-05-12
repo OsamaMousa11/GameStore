@@ -4,6 +4,6 @@ namespace GameStore
 {
     public class Category: BaseEntity
     {
-     public ICollection<Games> Games {  get; set; }=new List<Games>();
+     public ICollection<Game> Games {  get; set; }=new List<Game>();
     }
 }

@@ -33,7 +33,7 @@ namespace Services
             await model.Cover.CopyToAsync(stream);
             stream.Dispose();
 
-            Games game = new()
+            Game game = new()
             {
                 Name = model.Name,
                 Description = model.Description,
@@ -44,6 +44,16 @@ namespace Services
             await _gameRepository.AddGame(game);
 
         }
+
+        public  async Task<IEnumerable<Game>> GetAllGames()
+        {
+            var games = await _gameRepository.GetGames();
+            Console.WriteLine($"Fetched {games.Count()} games from the repository.");
+            return games;
+
+        }
+
+
 
     }
 }

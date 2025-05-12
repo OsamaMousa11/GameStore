@@ -1,4 +1,6 @@
 ﻿
+using ServicesContract;
+
 namespace GameStore.Controllers
 {
     public class GamesController : Controller
@@ -15,9 +17,10 @@ namespace GameStore.Controllers
             _gameServices = gameServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var games =await _gameServices.GetAllGames();
+            return View(games);
         }
         
         public IActionResult Create()

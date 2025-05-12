@@ -56,25 +56,13 @@ namespace Entites.Migrations
                     b.ToTable("Devices", (string)null);
                 });
 
-            modelBuilder.Entity("GameStore.GameDevice", b =>
-                {
-                    b.Property<int>("DeviceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DeviceId", "GameId");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("GameDevices", (string)null);
-                });
-
-            modelBuilder.Entity("GameStore.Games", b =>
+            modelBuilder.Entity("GameStore.Game", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -103,24 +91,20 @@ namespace Entites.Migrations
 
             modelBuilder.Entity("GameStore.GameDevice", b =>
                 {
-                    b.HasOne("GameStore.Device", "Device")
-                        .WithMany("GameDevices")
-                        .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("int");
 
-                    b.HasOne("GameStore.Games", "Game")
-                        .WithMany("GameDevices")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
 
-                    b.Navigation("Device");
+                    b.HasKey("DeviceId", "GameId");
 
-                    b.Navigation("Game");
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameDevices", (string)null);
                 });
 
-            modelBuilder.Entity("GameStore.Games", b =>
+            modelBuilder.Entity("GameStore.Game", b =>
                 {
                     b.HasOne("GameStore.Category", "Category")
                         .WithMany("Games")
@@ -129,6 +113,25 @@ namespace Entites.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("GameStore.GameDevice", b =>
+                {
+                    b.HasOne("GameStore.Device", "Device")
+                        .WithMany("GameDevices")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameStore.Game", "Game")
+                        .WithMany("Devices")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameStore.Category", b =>
@@ -141,9 +144,9 @@ namespace Entites.Migrations
                     b.Navigation("GameDevices");
                 });
 
-            modelBuilder.Entity("GameStore.Games", b =>
+            modelBuilder.Entity("GameStore.Game", b =>
                 {
-                    b.Navigation("GameDevices");
+                    b.Navigation("Devices");
                 });
 #pragma warning restore 612, 618
         }

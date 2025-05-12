@@ -9,6 +9,7 @@ namespace RepositoryContract
 {
     public interface IGameRepository
     {
-        Task AddGame(Games game);
+        Task AddGame(Game game);
+        Task<IEnumerable<Game>> GetGames();
     }
 }

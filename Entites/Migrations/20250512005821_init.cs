@@ -39,7 +39,8 @@ namespace Entites.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: false),
                     Cover = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),

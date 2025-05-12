@@ -1,21 +1,32 @@
 using GameStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
 namespace GameStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IGameService _gameService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IGameService gameService)
         {
-            _logger = logger;
+            _gameService=gameService;
         }
-
-        public IActionResult Index()
+     
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var games = await _gameService.GetAllGames();
+            Console.WriteLine($"Number of games fetched: {games.Count()}");
+
+            if (games != null && games.Any())
+            {
+                Console.WriteLine("Games are available.");
+            }
+            else
+            {
+                Console.WriteLine("No games found.");
+            }
+
+            return View(games);
         }
 
    

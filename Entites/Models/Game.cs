@@ -1,7 +1,7 @@
 ﻿
 namespace GameStore
 {
-    public class Games: BaseEntity
+    public class Game: BaseEntity
     {
 
         [MaxLength(2500)]

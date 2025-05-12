@@ -20,14 +20,14 @@
         </div>
         <div class="form-group">
             <label asp-for="CategoryId" class="form-label mt-4"></label>
-            <select class="form-select" asp-for="CategoryId" asp-items="Model.Categories">
-                <option value=""></option>
+            <select class="form-select optian" asp-for="CategoryId" asp-items="Model.Categories" data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                <option value="" class="optian"></option>
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="SelectedDevices" class="form-label mt-4"></label>
-            <select class="form-select" asp-for="SelectedDevices" asp-items="Model.Devices" multiple>
+            <select class="form-select optian" asp-for="SelectedDevices" asp-items="Model.Devices" data-placeholder="Select devices">
                 <option></option>
             </select>
             <span asp-validation-for="SelectedDevices" class="text-danger"></span>

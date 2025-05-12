@@ -2,13 +2,13 @@
 
 namespace GameStore
 {
-    public class GameConfig : IEntityTypeConfiguration<Games>
+    public class GameConfig : IEntityTypeConfiguration<Game>
     {
-        public void Configure(EntityTypeBuilder<Games> builder)
+        public void Configure(EntityTypeBuilder<Game> builder)
         {
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).ValueGeneratedNever();
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
             builder.Property(g => g.Name)
                 .IsRequired()
