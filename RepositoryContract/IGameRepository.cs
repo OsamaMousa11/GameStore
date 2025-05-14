@@ -11,5 +11,6 @@ namespace RepositoryContract
     {
         Task AddGame(Game game);
         Task<IEnumerable<Game>> GetGames();
+        Task <Game?>GameDetails(int id);
     }
 }

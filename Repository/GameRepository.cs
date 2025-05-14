@@ -24,10 +24,20 @@ namespace Repository
             await _context.SaveChangesAsync();
         }
 
+      
+
+      
+
         public async Task<IEnumerable<Game>>GetGames()
         {
             var games = await _context.Games.Include(g=>g.Category).Include(g=>g.Devices).ThenInclude(d=>d.Device).AsNoTracking().ToListAsync();
-            Console.WriteLine($"Total games found: {games.Count()}");  // طباعة عدد الألعاب
+            Console.WriteLine($"Total games found: {games.Count()}");  
+            return games;
+        }
+
+        public async Task<Game?> GameDetails(int id)
+        {
+            var games = await _context.Games.Include(g => g.Category).Include(g => g.Devices).ThenInclude(d => d.Device).AsNoTracking().SingleOrDefaultAsync(g=>g.Id==id);
             return games;
         }
     }

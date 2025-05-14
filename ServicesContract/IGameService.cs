@@ -12,5 +12,6 @@ namespace ServicesContract
     {
        Task Create(CreateGameFormViewModel model);
         Task<IEnumerable<Game>> GetAllGames();
+        Task  <Game?> GetById(int id);
     }
 }

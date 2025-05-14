@@ -48,5 +48,14 @@ namespace GameStore.Controllers
             return RedirectToAction(nameof(Index));
             
         }
+
+        public async Task <IActionResult> Details(int id)
+        {  
+
+            var game= await _gameServices.GetById(id);
+            if(game is null)
+                return NotFound();  
+            return View(game);
+        }
     }
 }

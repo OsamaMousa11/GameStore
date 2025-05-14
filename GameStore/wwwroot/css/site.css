@@ -1,4 +1,4 @@
-* {
+/** {
     font-family: 'Chakra Petch', sans-serif;
 }
 
@@ -23,10 +23,10 @@ html {
 
 body {
     margin-bottom: 60px;
-}
+}*/
 
 /* Start override select2 */
-.select2-container--default .select2-selection--single {
+/*.select2-container--default .select2-selection--single {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, .4);
     border-radius: 4px;
@@ -75,22 +75,22 @@ body {
 
 .select2 {
     width: 100% !important;
-}
+}*/
 /* End override select2 */
 
 /* Start Override SweetAlert2 */
-.swal2-title, .swal2-html-container {
+/*.swal2-title, .swal2-html-container {
     color: #fff !important;
 }
 
 div:where(.swal2-container) div:where(.swal2-popup) {
     background: #1a0933;
-}
+}*/
 /* End Override SweetAlert2 */
 
 /* Start Custom Styles */
-.cover-preview {
+/*.cover-preview {
     max-height: 500px;
     border-radius: 8px;
-}
+}*/
 /* End Custom Styles */

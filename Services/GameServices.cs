@@ -2,6 +2,7 @@
 using GameStore.Settings;
 using GameStore.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RepositoryContract;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,11 @@ namespace Services
 
         }
 
-
-
+       
+         public async Task<Game> GetById(int id)
+        {
+            var game = await _gameRepository.GameDetails(id);
+            return game;    
+        }
     }
 }
