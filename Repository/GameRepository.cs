@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using RepositoryContract;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModels;
 
 namespace Repository
 {   
@@ -39,6 +41,18 @@ namespace Repository
         {
             var games = await _context.Games.Include(g => g.Category).Include(g => g.Devices).ThenInclude(d => d.Device).AsNoTracking().SingleOrDefaultAsync(g=>g.Id==id);
             return games;
+        }
+
+    
+
+        public async Task<Game?> FindGame(EditGameFormViewModel model)
+        {
+           return  await _context.Games.FindAsync(model.Id);
+        }
+
+        public async Task<IEnumerable> Save()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

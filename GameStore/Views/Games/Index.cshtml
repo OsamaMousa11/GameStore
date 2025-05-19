@@ -1,18 +1,16 @@
 ﻿@using GameStore.Settings
+
 @model IEnumerable<Game>
 
 @{
-    ViewData["Title"] = "Games";
+    ViewData["Title"] = "Games"; 
 }
 
 <a class="btn btn-secondary btn-lg" asp-action="Create">
     <i class="bi bi-plus-circle-dotted"></i>
     Add Game
 </a>
-@if (Model != null && !Model.Any())
-{
-    <p>No games found.</p>
-}
+
 @if (!Model.Any())
 {
     <div class="alert alert-warning mt-5">
@@ -25,7 +23,7 @@ else
     <div class="mt-5">
         <table class="table table-bordered border-primary">
             <tbody>
-                @foreach (var game in Model)
+                @foreach(var game in Model)
                 {
                     <tr class="border-1 border-success">
                         <td>
@@ -41,14 +39,12 @@ else
                         </td>
                         <td class="align-middle">
                             <div class="d-flex justify-content-end">
-                                <a href="#" class="btn btn-info rounded bg-primary rounded-3 me-2">
+                                <a class="btn btn-info rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@game.Id">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger rounded rounded-3">
+                                <a href="javascript:;" class="btn btn-danger rounded rounded-3 js-delete" data-id="@game.Id">
                                     <i class="bi bi-trash3"></i>
-
                                 </a>
-                               
                             </div>
                         </td>
                     </tr>

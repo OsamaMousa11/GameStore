@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using ServicesContract;
+using System;
 
 namespace GameStore
 {
@@ -31,7 +32,7 @@ namespace GameStore
             builder.Services.AddScoped<IGameRepository, GameRepository>();
 
 
-          
+           
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())

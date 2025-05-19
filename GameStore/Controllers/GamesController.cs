@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using ServicesContract;
+using System.Threading.Tasks;
 
 namespace GameStore.Controllers
 {
@@ -56,6 +58,16 @@ namespace GameStore.Controllers
             if(game is null)
                 return NotFound();  
             return View(game);
+        }
+
+        [HttpGet ]
+        public async Task<IActionResult>Edit(int id )
+        {
+            var game = await  _gameServices.GetEditGameViewModelAsync(id);
+            if (game is null)
+                return NotFound();
+            return View(game);
+
         }
     }
 }
