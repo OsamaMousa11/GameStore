@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServicesContract;
 using System.Threading.Tasks;
+using ViewModels;
 
 namespace GameStore.Controllers
 {
@@ -67,7 +68,34 @@ namespace GameStore.Controllers
             if (game is null)
                 return NotFound();
             return View(game);
-
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditGameFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Categories =_categoriesService.GetListCategories();
+                model.Devices =_devicesService.GetListDevices();
+                return View(model);
+            }
+
+            var game = await _gameServices.Update(model);
+
+            if (game is null)
+                return BadRequest();
+
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpDelete("Game/Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var isDeleted =await  _gameServices.Delete(id);
+
+            return isDeleted ? Ok() : BadRequest();
+        }
+
+
+
     }
 }

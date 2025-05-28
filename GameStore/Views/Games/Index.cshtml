@@ -58,3 +58,26 @@ else
 {
     <script src="~/js/games-index.js" asp-append-version="true"></script>
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".js-delete").forEach(button => {
+            button.addEventListener("click", async function () {
+                const id = this.dataset.id;
+
+                const confirmDelete = confirm("هل أنت متأكد من حذف هذه اللعبة؟");
+                if (!confirmDelete) return;
+
+                const response = await fetch(`/Game/Delete/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert("تم الحذف بنجاح");
+                    location.reload(); 
+                } else {
+                    alert("حدث خطأ أثناء الحذف");
+                }
+            });
+        });
+    });
+</script>

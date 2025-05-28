@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Repository;
 using RepositoryContract;
 using ServicesContract;
 using System;
@@ -61,7 +63,7 @@ namespace Services
         }
 
        
-         public async Task<Game> GetById(int id)
+         public async Task<Game?> GetById(int id)
         {
             var game = await _gameRepository.GameDetails(id);
             return game;    
@@ -108,6 +110,7 @@ namespace Services
             if(game == null)
                 return null;
             var hasNewCover = model.Cover is not null;
+            var oldCover=game.Cover;
             game.Name = model.Name;
             game.Description = model.Description;
             game.CategoryId = model.CategoryId;
@@ -117,7 +120,26 @@ namespace Services
             {
                 game.Cover=await SaveCover(model.Cover!);
             }
-             var  eff=await _gameRepository.Save();
+             var effectedRows = await _gameRepository.Save();
+            if (effectedRows > 0)
+            {
+                if (hasNewCover)
+                {
+                    var cover = Path.Combine(_imagespath,oldCover);
+                    File.Delete(cover);
+                }
+
+                return game;
+            }
+            else
+            {
+                var cover = Path.Combine(_imagespath, game.Cover);
+                File.Delete(cover);
+
+                return null;
+            }
+
+
         }
         private async Task<string> SaveCover(IFormFile cover)
         {
@@ -129,9 +151,29 @@ namespace Services
             return coverName;
         }
 
-        /*   bool IGameService.Delete(int id)
+           public async Task<bool> Delete(int id)
            {
-               throw new NotImplementedException();
-           }*/
+            var isDeleted = false;
+
+            var game =await  _gameRepository.GetByid(id);
+
+            if (game is null)
+                return isDeleted;
+
+            _gameRepository.Remove(game);
+            var effectedRows =await  _gameRepository.Save();
+
+            if (effectedRows > 0)
+            {
+                isDeleted = true;
+
+                var cover = Path.Combine(_imagespath, game.Cover);
+                File.Delete(cover);
+            }
+
+            return isDeleted;
+        }
+
+        
     }
 }

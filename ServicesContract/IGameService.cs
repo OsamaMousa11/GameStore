@@ -16,6 +16,7 @@ namespace ServicesContract
         Task  <Game?> GetById(int id);
         Task<EditGameFormViewModel> GetEditGameViewModelAsync(int id);
         Task<Game?> Update(EditGameFormViewModel model);
-     /*   bool Delete(int id);*/
+        Task<bool> Delete(int id);
+
     }
 }

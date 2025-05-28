@@ -18,6 +18,9 @@ namespace RepositoryContract
 
         Task<Game?> FindGame(EditGameFormViewModel model);
 
-        Task<IEnumerable> Save();
+        Task<Game?> GetByid(int id);
+        Task<int> Save();
+        void Remove(Game game);
+
     }
 }

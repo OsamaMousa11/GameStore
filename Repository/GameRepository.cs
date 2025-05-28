@@ -26,9 +26,6 @@ namespace Repository
             await _context.SaveChangesAsync();
         }
 
-      
-
-      
 
         public async Task<IEnumerable<Game>>GetGames()
         {
@@ -47,12 +44,24 @@ namespace Repository
 
         public async Task<Game?> FindGame(EditGameFormViewModel model)
         {
-           return  await _context.Games.FindAsync(model.Id);
+           return  await _context.Games.Include(g=>g.Devices).SingleOrDefaultAsync(g=>g.Id==model.Id);
         }
 
-        public async Task<IEnumerable> Save()
+        public async Task<int> Save()
         {
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<Game?> GetByid(int id)
+        {
+            return await _context.Games.FindAsync(id);
+        }
+
+      
+
+        public void Remove(Game game)
+        {
+            _context.Games.Remove(game);
         }
     }
 }
